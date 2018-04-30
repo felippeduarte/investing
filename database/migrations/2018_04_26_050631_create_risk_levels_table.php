@@ -15,7 +15,7 @@ class CreateRiskLevelsTable extends Migration
     {
         Schema::create('risk_levels', function (Blueprint $table) {
             $table->increments('id');
-            $table->timestamps();
+            $table->string('description');
         });
     }
 

@@ -15,7 +15,10 @@ class CreateFinancialInstitutionsTable extends Migration
     {
         Schema::create('financial_institutions', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('full_name');
+            $table->string('short_name');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
