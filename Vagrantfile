@@ -30,19 +30,25 @@ echo -e "\n--- Instalando Apache 2 ---\n"
 sudo apt-get install -y apache2
 
 echo -e "\n--- Definindo diretório da aplicação Laravel ---\n"
-rm -rf /var/www/*
-ln -fs /vagrant /var/www
+rm -rf /var/www/html
+ln -s /vagrant /var/www/html
 echo "cd /vagrant" >> /home/vagrant/.bashrc
+sudo sed -i 's!/var/www/html!/var/www/html/public!g' /etc/apache2/sites-available/000-default.conf
 
 echo -e "\n--- Instalando o PHP 7.2 ---\n"
 sudo apt-get -y install python-software-properties
 sudo add-apt-repository ppa:ondrej/php
 sudo apt-get -qq update
-sudo apt-get install -y php7.2 libapache2-mod-php7.2 php7.2-cli php7.2-common php7.2-mbstring php7.2-gd php7.2-intl php7.2-xml php7.2-mysql php7.2-zip
+sudo apt-get install -y php7.2 libapache2-mod-php7.2 php7.2-cli php7.2-common php7.2-mbstring php7.2-gd php7.2-intl php7.2-xml php7.2-mysql php7.2-zip php-xdebug php7.2-fpm
 
 echo -e "\n--- Configurando PHP.ini ---\n"
 sudo sed -i "s/error_reporting = .*/error_reporting = E_ALL/" /etc/php/7.2/apache2/php.ini
 sudo sed -i "s/display_errors = .*/display_errors = On/" /etc/php/7.2/apache2/php.ini
+echo 'xdebug.remote_enable = 1' | sudo tee --append /etc/php/7.2/mods-available/xdebug.ini
+echo 'xdebug.remote_autostart = 1' | sudo tee --append /etc/php/7.2/mods-available/xdebug.ini
+echo 'xdebug.remote_port=9000' | sudo tee --append /etc/php/7.2/mods-available/xdebug.ini
+echo 'xdebug.remote_connect_back=true' | sudo tee --append /etc/php/7.2/mods-available/xdebug.ini
+echo 'xdebug.remote_host=10.0.2.2' | sudo tee --append /etc/php/7.2/mods-available/xdebug.ini
 sudo service apache2 restart
 
 echo -e "\n--- Instalando composer ---\n"
