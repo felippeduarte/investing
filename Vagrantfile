@@ -48,7 +48,7 @@ echo 'xdebug.remote_enable = 1' | sudo tee --append /etc/php/7.2/mods-available/
 echo 'xdebug.remote_autostart = 1' | sudo tee --append /etc/php/7.2/mods-available/xdebug.ini
 echo 'xdebug.remote_port=9000' | sudo tee --append /etc/php/7.2/mods-available/xdebug.ini
 echo 'xdebug.remote_connect_back=true' | sudo tee --append /etc/php/7.2/mods-available/xdebug.ini
-echo 'xdebug.remote_host=10.0.2.2' | sudo tee --append /etc/php/7.2/mods-available/xdebug.ini
+netstat -rn | grep "^0.0.0.0 " | cut -d " " -f10 | awk -v x="xdebug.remote_host=" '{print x $1}' | sudo tee --append /etc/php/7.2/mods-available/xdebug.ini
 sudo service apache2 restart
 
 echo -e "\n--- Instalando composer ---\n"
