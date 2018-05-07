@@ -3,18 +3,24 @@
 namespace App\Http\Controllers;
 
 use App\FinancialInstitution;
+use App\Services\FinancialInstitutionService;
 use Illuminate\Http\Request;
 
 class FinancialInstitutionController extends Controller
 {
+    public function __construct(FinancialInstitutionService $service)
+    {
+        $this->service = $service;
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        return parent::_index($request);
     }
 
     /**

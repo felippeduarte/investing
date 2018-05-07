@@ -31,17 +31,18 @@ class Service
         return $this->model->delete($id);
     }
 
-    protected function orderBy($data, $request)
+    protected function sort($data, $request)
     {
-        if($request->has('sort')) {
-            $sortFields = explode('|', $request->input('sort'));
-            foreach($sortFields as $sortField) {
+        if ($request->has('sort')) {
+            $sortFields = explode(',', $request->input('sort'));
+            foreach ($sortFields as $sortField) {
                 $sort = explode('|', $sortField);
                 $field = $sort[0];
                 $direction = $sort[1];
                 $data = $data->orderBy($field, $direction);
             } 
         }
+
         return $data;
     }
 
@@ -52,6 +53,6 @@ class Service
             return $data->paginate($per_page);
         }
         
-        return $data->all();
+        return $data->get();
     }
 }
