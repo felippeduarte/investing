@@ -5,16 +5,34 @@ namespace Tests\Unit;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use App\FinancialInstitution;
 
 class FinancialInstititutionTest extends TestCase
 {
-    /**
-     * A basic test example.
-     *
-     * @return void
-     */
-    public function testExample()
+    public function testIndex()
     {
-        $this->assertTrue(true);
+        $numElements = 3;
+        $f = factory(FinancialInstitution::class, $numElements)->create();
+        $service = app('App\Services\FinancialInstitutionService');
+        $request = app('Illuminate\Http\Request');
+        $actual = $service->index($request);
+        $this->assertEquals($actual->count(), $numElements);
+    }
+
+    public function testIndexSortedPaginated()
+    {
+        $numElements = 3;
+        $f = factory(FinancialInstitution::class, $numElements)->create();
+        $service = app('App\Services\FinancialInstitutionService');
+        $request = app('Illuminate\Http\Request');
+        $params = [
+            'sort' => 'id|asc',
+            'per_page' => $numElements-1,
+        ];
+        $request->replace($params);
+        $actual = $service->index($request);
+        
+        $this->assertEquals($actual->count(), $numElements-1);
+        $this->assertEquals($actual[0]->id, $f[0]->id);
     }
 }
