@@ -9,9 +9,10 @@ sudo apt-get -qq update
 #Variáveis para o MySQL - Apenas para máquina de desenvolvimento
 #Altere para os dados que achar relevante
 DBHOST=localhost
-DBNAME=dbname
-DBUSER=dbuser
-DBPASSWD=dbpass
+DBNAME=investing
+DBNAME_TEST=test
+DBUSER=investing
+DBPASSWD=investing
 
 echo -e "\n--- Instalando e configurando MySQL ---\n"
 debconf-set-selections <<< "mysql-server mysql-server/root_password password $DBPASSWD"
@@ -20,6 +21,9 @@ sudo apt-get -y install mysql-server
 
 mysql -uroot -p$DBPASSWD -e "CREATE DATABASE $DBNAME"
 mysql -uroot -p$DBPASSWD -e "grant all privileges on $DBNAME.* to '$DBUSER'@'%' identified by '$DBPASSWD'"
+mysql -uroot -p$DBPASSWD -e "CREATE DATABASE $DBNAME_TEST"
+mysql -uroot -p$DBPASSWD -e "grant all privileges on $DBNAME_TEST.* to '$DBUSER'@'%' identified by '$DBPASSWD'"
+
 
 systemctl enable mysql
 
