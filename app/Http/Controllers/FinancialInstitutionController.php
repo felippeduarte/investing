@@ -14,11 +14,6 @@ class FinancialInstitutionController extends Controller
         $this->service = $service;
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index(Request $request)
     {
         return parent::_index($request);
@@ -29,18 +24,18 @@ class FinancialInstitutionController extends Controller
         return parent::_store($request);
     }
 
-    public function show(FinancialInstitution $financialInstitution)
+    public function show(Request $request, FinancialInstitution $financialInstitution)
     {
-        //
+        return parent::_show($request, $financialInstitution);
     }
 
     public function update(FinancialInstitutionRequest $request, FinancialInstitution $financialInstitution)
     {
-        //
+        return parent::_update($request, $financialInstitution);
     }
 
     public function destroy(FinancialInstitution $financialInstitution)
     {
-        //
+        return parent::_destroy($financialInstitution);
     }
 }

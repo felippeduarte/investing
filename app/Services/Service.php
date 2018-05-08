@@ -11,9 +11,9 @@ class Service
         return $this->paginate($data, $request);
     }
 
-    public function show($request, $id)
+    public function show($request, $model)
     {
-        return $this->model->find($id);
+        return $model;
     }
 
     public function store($request)
@@ -21,14 +21,15 @@ class Service
         return $this->model->create($request->toArray());
     }
 
-    public function update($request, $id)
+    public function update($request, $model)
     {
-        return $this->model->update($request, $id);
+        $model->update($request->toArray());
+        return $model;
     }
 
-    public function destroy($id)
+    public function destroy($model)
     {
-        return $this->model->delete($id);
+        return $model->delete();
     }
 
     protected function sort($data, $request)

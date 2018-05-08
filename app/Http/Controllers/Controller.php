@@ -16,9 +16,9 @@ class Controller extends BaseController
         return $this->service->index($request);
     }
 
-    protected function _show($request, $id)
+    protected function _show($request, $model)
     {
-        return $this->service->show($request, $id);
+        return $this->service->show($request, $model);
     }
 
     protected function _store($request)
@@ -26,13 +26,14 @@ class Controller extends BaseController
         return $this->service->store($request);
     }
 
-    protected function _update($request, $id)
+    protected function _update($request, $model)
     {
-        return $this->service->update($request, $id);
+        return $this->service->update($request, $model);
     }
 
-    protected function _destroy($id)
+    protected function _destroy($model)
     {
-        return $this->service->destroy($id);
+        $this->service->destroy($model);
+        return response()->json([], 204);
     }
 }
