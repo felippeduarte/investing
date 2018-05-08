@@ -35,6 +35,6 @@ class CreateInvestmentProductsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('investments');
+        Schema::dropIfExists('investment_products');
     }
 }

@@ -18,7 +18,7 @@ class Service
 
     public function store($request)
     {
-        return $this->model->create($request);
+        return $this->model->create($request->toArray());
     }
 
     public function update($request, $id)
