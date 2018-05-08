@@ -3,83 +3,39 @@
 namespace App\Http\Controllers;
 
 use App\FinancialInstitutionType;
+use App\Services\FinancialInstitutionTypeService;
 use Illuminate\Http\Request;
+use App\Http\Requests\FinancialInstitutionTypeRequest;
 
 class FinancialInstitutionTypeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function __construct(FinancialInstitutionTypeService $service)
     {
-        //
+        $this->service = $service;
+    }
+    
+    public function index(Request $request)
+    {
+        return parent::_index($request);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function store(FinancialInstitutionTypeRequest $request)
     {
-        //
+        return parent::_store($request);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function show(Request $request, FinancialInstitutionType $financialInstitutionType)
     {
-        //
+        return parent::_show($request, $financialInstitutionType);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\FinancialInstitutionType  $financialInstitutionType
-     * @return \Illuminate\Http\Response
-     */
-    public function show(FinancialInstitutionType $financialInstitutionType)
+    public function update(FinancialInstitutionTypeRequest $request, FinancialInstitutionType $financialInstitutionType)
     {
-        //
+        return parent::_update($request, $financialInstitutionType);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\FinancialInstitutionType  $financialInstitutionType
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(FinancialInstitutionType $financialInstitutionType)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\FinancialInstitutionType  $financialInstitutionType
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, FinancialInstitutionType $financialInstitutionType)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\FinancialInstitutionType  $financialInstitutionType
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(FinancialInstitutionType $financialInstitutionType)
     {
-        //
+        return parent::_destroy($financialInstitutionType);
     }
 }
