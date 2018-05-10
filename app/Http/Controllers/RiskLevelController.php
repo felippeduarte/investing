@@ -3,83 +3,39 @@
 namespace App\Http\Controllers;
 
 use App\RiskLevel;
+use App\Services\RiskLevelService;
 use Illuminate\Http\Request;
+use App\Http\Requests\RiskLevelRequest;
 
 class RiskLevelController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function __construct(RiskLevelService $service)
     {
-        //
+        $this->service = $service;
+    }
+    
+    public function index(Request $request)
+    {
+        return parent::_index($request);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function store(RiskLevelRequest $request)
     {
-        //
+        return parent::_store($request);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function show(Request $request, RiskLevel $riskLevel)
     {
-        //
+        return parent::_show($request, $riskLevel);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\RiskLevel  $riskLevel
-     * @return \Illuminate\Http\Response
-     */
-    public function show(RiskLevel $riskLevel)
+    public function update(RiskLevelRequest $request, RiskLevel $riskLevel)
     {
-        //
+        return parent::_update($request, $riskLevel);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\RiskLevel  $riskLevel
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(RiskLevel $riskLevel)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\RiskLevel  $riskLevel
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, RiskLevel $riskLevel)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\RiskLevel  $riskLevel
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(RiskLevel $riskLevel)
     {
-        //
+        return parent::_destroy($riskLevel);
     }
 }
