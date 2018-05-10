@@ -5,26 +5,26 @@ namespace Tests\Feature;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use App\Index;
+use App\InvestmentType;
 
-class IndexTest extends TestCase
+class InvestmentTypeTest extends TestCase
 {
     use WithFaker;
 
-    protected $url = '/api/index';
+    protected $url = '/api/investmentType';
 
-    public function testIndexOk()
+    public function testInvestmentTypeOk()
     {
-        $f = factory(Index::class, 5)->create();
+        $f = factory(InvestmentType::class, 5)->create();
         $response = $this->get($this->url);
         $response->assertStatus(200);
 
         $response->assertJsonFragment($f[0]->toArray());
     }
 
-    public function testIndexSortedPaginatedOk()
+    public function testInvestmentTypeSortedPaginatedOk()
     {
-        $f = factory(Index::class, 5)->create();
+        $f = factory(InvestmentType::class, 5)->create();
         $per_page = 2;
         $response = $this->get($this->url.'?sort=id%7Casc&per_page='.$per_page);
         $response->assertStatus(200);
@@ -35,7 +35,7 @@ class IndexTest extends TestCase
 
     public function testShowOk()
     {
-        $f = factory(Index::class)->create();
+        $f = factory(InvestmentType::class)->create();
         $response = $this->get($this->url.'/'.$f->id);
         $response->assertStatus(200);
         $response->assertJsonFragment($f->toArray());
@@ -43,7 +43,7 @@ class IndexTest extends TestCase
 
     public function testShowNotFound()
     {
-        $f = factory(Index::class)->create();
+        $f = factory(InvestmentType::class)->create();
         $response = $this->get($this->url.'/'.($f->id+1));
         $response->assertStatus(404);
 
@@ -70,7 +70,7 @@ class IndexTest extends TestCase
 
     public function testUpdateOk()
     {
-        $f = factory(Index::class)->create();
+        $f = factory(InvestmentType::class)->create();
         $params = [
             'name' => $this->faker()->word,
         ];
@@ -83,7 +83,7 @@ class IndexTest extends TestCase
 
     public function testUpdateNotFound()
     {
-        $f = factory(Index::class)->create();
+        $f = factory(InvestmentType::class)->create();
         $params = [
             'name' => $this->faker()->word,
         ];
@@ -95,7 +95,7 @@ class IndexTest extends TestCase
 
     public function testUpdateMissingParameter()
     {
-        $f = factory(Index::class)->create();
+        $f = factory(InvestmentType::class)->create();
 
         $response = $this->json('PUT', $this->url.'/'.$f->id, []);
         $response->assertStatus(422);
@@ -103,15 +103,15 @@ class IndexTest extends TestCase
 
     public function testDestroyOk()
     {
-        $f = factory(Index::class)->create();
+        $f = factory(InvestmentType::class)->create();
         $response = $this->json('DELETE', $this->url.'/'.$f->id);
         $response->assertStatus(204);
-        $this->assertSoftDeleted(app(Index::class)->getTable(), ['id' => $f->id]);
+        $this->assertSoftDeleted(app(InvestmentType::class)->getTable(), ['id' => $f->id]);
     }
 
     public function testDestroyNotFound()
     {
-        $f = factory(Index::class)->create();
+        $f = factory(InvestmentType::class)->create();
         $response = $this->json('DELETE', $this->url.'/'.($f->id+1));
         $response->assertStatus(404);
     }

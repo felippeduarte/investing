@@ -3,83 +3,39 @@
 namespace App\Http\Controllers;
 
 use App\InvestmentType;
+use App\Services\InvestmentTypeService;
 use Illuminate\Http\Request;
+use App\Http\Requests\InvestmentTypeRequest;
 
 class InvestmentTypeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function __construct(InvestmentTypeService $service)
     {
-        //
+        $this->service = $service;
+    }
+    
+    public function index(Request $request)
+    {
+        return parent::_index($request);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function store(InvestmentTypeRequest $request)
     {
-        //
+        return parent::_store($request);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function show(Request $request, InvestmentType $investmentType)
     {
-        //
+        return parent::_show($request, $investmentType);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\InvestmentType  $investmentType
-     * @return \Illuminate\Http\Response
-     */
-    public function show(InvestmentType $investmentType)
+    public function update(InvestmentTypeRequest $request, InvestmentType $investmentType)
     {
-        //
+        return parent::_update($request, $investmentType);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\InvestmentType  $investmentType
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(InvestmentType $investmentType)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\InvestmentType  $investmentType
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, InvestmentType $investmentType)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\InvestmentType  $investmentType
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(InvestmentType $investmentType)
     {
-        //
+        return parent::_destroy($investmentType);
     }
 }

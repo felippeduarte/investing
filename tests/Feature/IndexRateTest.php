@@ -152,6 +152,7 @@ class IndexRateTest extends TestCase
         $f = factory(IndexRate::class)->create();
         $response = $this->json('DELETE', $this->url.'/'.$f->id);
         $response->assertStatus(204);
+        $this->assertSoftDeleted(app(IndexRate::class)->getTable(), ['id' => $f->id]);
     }
 
     public function testDestroyNotFound()

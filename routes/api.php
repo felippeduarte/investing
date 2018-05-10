@@ -21,5 +21,6 @@ Route::resource('financialInstitution', 'FinancialInstitutionController');
 Route::resource('financialInstitutionType', 'FinancialInstitutionTypeController');
 Route::resource('index', 'IndexController');
 Route::resource('indexRate', 'IndexRateController');
+Route::resource('investmentType', 'InvestmentTypeController');
 Route::resource('period', 'PeriodController');
 Route::resource('riskLevel', 'RiskLevelController');

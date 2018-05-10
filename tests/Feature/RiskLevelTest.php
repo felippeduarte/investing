@@ -106,6 +106,7 @@ class RiskLevelTest extends TestCase
         $f = factory(RiskLevel::class)->create();
         $response = $this->json('DELETE', $this->url.'/'.$f->id);
         $response->assertStatus(204);
+        $this->assertDatabaseMissing(app(RiskLevel::class)->getTable(), ['id' => $f->id]);
     }
 
     public function testDestroyNotFound()

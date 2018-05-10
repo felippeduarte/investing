@@ -106,6 +106,7 @@ class PeriodTest extends TestCase
         $f = factory(Period::class)->create();
         $response = $this->json('DELETE', $this->url.'/'.$f->id);
         $response->assertStatus(204);
+        $this->assertSoftDeleted(app(Period::class)->getTable(), ['id' => $f->id]);
     }
 
     public function testDestroyNotFound()

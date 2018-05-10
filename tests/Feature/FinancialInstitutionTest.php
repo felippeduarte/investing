@@ -6,7 +6,7 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use App\FinancialInstitution;
 
-class FinancialInstititutionTest extends TestCase
+class FinancialInstitutionTest extends TestCase
 {
     use WithFaker;
 
@@ -146,6 +146,7 @@ class FinancialInstititutionTest extends TestCase
         $f = factory(FinancialInstitution::class)->create();
         $response = $this->json('DELETE', $this->url.'/'.$f->id);
         $response->assertStatus(204);
+        $this->assertSoftDeleted(app(FinancialInstitution::class)->getTable(), ['id' => $f->id]);
     }
 
     public function testDestroyNotFound()

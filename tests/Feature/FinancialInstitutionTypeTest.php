@@ -106,6 +106,7 @@ class FinancialInstitutionTypeTest extends TestCase
         $f = factory(FinancialInstitutionType::class)->create();
         $response = $this->json('DELETE', $this->url.'/'.$f->id);
         $response->assertStatus(204);
+        $this->assertDatabaseMissing(app(FinancialInstitutionType::class)->getTable(), ['id' => $f->id]);
     }
 
     public function testDestroyNotFound()
