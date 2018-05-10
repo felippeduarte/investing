@@ -20,3 +20,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::resource('financialInstitution', 'FinancialInstitutionController');
 Route::resource('financialInstitutionType', 'FinancialInstitutionTypeController');
 Route::resource('riskLevel', 'RiskLevelController');
+Route::resource('period', 'PeriodController');

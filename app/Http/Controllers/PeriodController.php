@@ -3,83 +3,39 @@
 namespace App\Http\Controllers;
 
 use App\Period;
+use App\Services\PeriodService;
 use Illuminate\Http\Request;
+use App\Http\Requests\PeriodRequest;
 
 class PeriodController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function __construct(PeriodService $service)
     {
-        //
+        $this->service = $service;
+    }
+    
+    public function index(Request $request)
+    {
+        return parent::_index($request);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function store(PeriodRequest $request)
     {
-        //
+        return parent::_store($request);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function show(Request $request, Period $period)
     {
-        //
+        return parent::_show($request, $period);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Period  $period
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Period $period)
+    public function update(PeriodRequest $request, Period $period)
     {
-        //
+        return parent::_update($request, $period);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Period  $period
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Period $period)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Period  $period
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Period $period)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Period  $period
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Period $period)
     {
-        //
+        return parent::_destroy($period);
     }
 }
