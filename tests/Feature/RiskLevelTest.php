@@ -44,7 +44,7 @@ class RiskLevelTest extends TestCase
     public function testShowNotFound()
     {
         $f = factory(RiskLevel::class)->create();
-        $response = $this->get('/api/financialInstitution/'.($f->id+1));
+        $response = $this->get($this->url.'/'.($f->id+1));
         $response->assertStatus(404);
 
         $response->assertJsonMissing($f->toArray());

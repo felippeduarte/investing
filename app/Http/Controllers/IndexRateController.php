@@ -3,83 +3,39 @@
 namespace App\Http\Controllers;
 
 use App\IndexRate;
+use App\Services\IndexRateService;
 use Illuminate\Http\Request;
+use App\Http\Requests\IndexRateRequest;
 
 class IndexRateController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function __construct(IndexRateService $service)
     {
-        //
+        $this->service = $service;
+    }
+    
+    public function index(Request $request)
+    {
+        return parent::_index($request);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function store(IndexRateRequest $request)
     {
-        //
+        return parent::_store($request);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function show(Request $request, IndexRate $indexRate)
     {
-        //
+        return parent::_show($request, $indexRate);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\IndexRate  $indexRate
-     * @return \Illuminate\Http\Response
-     */
-    public function show(IndexRate $indexRate)
+    public function update(IndexRateRequest $request, IndexRate $indexRate)
     {
-        //
+        return parent::_update($request, $indexRate);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\IndexRate  $indexRate
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(IndexRate $indexRate)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\IndexRate  $indexRate
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, IndexRate $indexRate)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\IndexRate  $indexRate
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(IndexRate $indexRate)
     {
-        //
+        return parent::_destroy($indexRate);
     }
 }

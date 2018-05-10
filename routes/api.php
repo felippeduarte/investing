@@ -20,5 +20,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::resource('financialInstitution', 'FinancialInstitutionController');
 Route::resource('financialInstitutionType', 'FinancialInstitutionTypeController');
 Route::resource('index', 'IndexController');
+Route::resource('indexRate', 'IndexRateController');
 Route::resource('period', 'PeriodController');
 Route::resource('riskLevel', 'RiskLevelController');

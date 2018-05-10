@@ -4,37 +4,43 @@ namespace Tests\Feature;
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
-use App\FinancialInstitution;
+use App\IndexRate;
 
-class FinancialInstititutionTest extends TestCase
+class IndexRateTest extends TestCase
 {
     use WithFaker;
 
-    protected $url = '/api/financialInstitution';
+    protected $url = '/api/indexRate';
 
     public function testIndexOk()
     {
-        $f = factory(FinancialInstitution::class, 5)->create();
+        $f = factory(IndexRate::class, 5)->create();
         $response = $this->get($this->url);
         $response->assertStatus(200);
 
-        $response->assertJsonFragment($f[0]->toArray());
+        $index = $f[0]->toArray();
+        $index['value'] = number_format($index['value'], 2);
+        $response->assertJsonFragment($index);
     }
 
     public function testIndexSortedPaginatedOk()
     {
-        $f = factory(FinancialInstitution::class, 5)->create();
+        $f = factory(IndexRate::class, 5)->create();
+        $index = $f[0]->toArray();
+        $index['value'] = number_format($index['value'], 2);
+
         $per_page = 2;
         $response = $this->get($this->url.'?sort=id%7Casc&per_page='.$per_page);
         $response->assertStatus(200);
         $response->assertJsonCount($per_page, 'data');
-        $response->assertJsonFragment($f[0]->toArray());
+        $response->assertJsonFragment($index);
         $response->assertJsonMissing(['id' => $f[2]->id]);
     }
 
     public function testShowOk()
     {
-        $f = factory(FinancialInstitution::class)->create();
+        $f = factory(IndexRate::class)->create();
+        $f->value = number_format($f->value, 2);
         $response = $this->get($this->url.'/'.$f->id);
         $response->assertStatus(200);
         $response->assertJsonFragment($f->toArray());
@@ -42,7 +48,7 @@ class FinancialInstititutionTest extends TestCase
 
     public function testShowNotFound()
     {
-        $f = factory(FinancialInstitution::class)->create();
+        $f = factory(IndexRate::class)->create();
         $response = $this->get($this->url.'/'.($f->id+1));
         $response->assertStatus(404);
 
@@ -52,9 +58,9 @@ class FinancialInstititutionTest extends TestCase
     public function testStoreOk()
     {
         $params = [
-            'full_name' => $this->faker()->company,
-            'short_name' => $this->faker()->word,
-            'financial_institution_type_id' => factory(\App\FinancialInstitutionType::class)->create()->id,
+            'index_id' => factory(\App\Index::class)->create()->id,
+            'period_id' => factory(\App\Period::class)->create()->id,
+            'value' => $this->faker()->randomFloat(2),
         ];
         
         $response = $this->post($this->url, $params);
@@ -66,34 +72,34 @@ class FinancialInstititutionTest extends TestCase
     public function testStoreMissingParameter()
     {
         $baseParams = [
-            'full_name' => $this->faker()->company,
-            'short_name' => $this->faker()->word,
-            'financial_institution_type_id' => factory(\App\FinancialInstitutionType::class)->create()->id,
+            'index_id' => factory(\App\Index::class)->create()->id,
+            'period_id' => factory(\App\Period::class)->create()->id,
+            'value' => $this->faker()->randomFloat(2),
         ];
         
         $params = $baseParams;
-        unset($params['full_name']);
+        unset($params['index_id']);
         $response = $this->json('POST', $this->url, $params);
         $response->assertStatus(422);
 
         $params = $baseParams;
-        unset($params['short_name']);
+        unset($params['period_id']);
         $response = $this->json('POST', $this->url, $params);
         $response->assertStatus(422);
 
         $params = $baseParams;
-        unset($params['financial_institution_type_id']);
+        unset($params['value']);
         $response = $this->json('POST', $this->url, $params);
         $response->assertStatus(422);
     }
 
     public function testUpdateOk()
     {
-        $f = factory(FinancialInstitution::class)->create();
+        $f = factory(IndexRate::class)->create();
         $params = [
-            'full_name' => $this->faker()->company,
-            'short_name' => $this->faker()->word,
-            'financial_institution_type_id' => factory(\App\FinancialInstitutionType::class)->create()->id,
+            'index_id' => factory(\App\Index::class)->create()->id,
+            'period_id' => factory(\App\Period::class)->create()->id,
+            'value' => $this->faker()->randomFloat(2),
         ];
         
         $response = $this->json('PUT', $this->url.'/'.$f->id, $params);
@@ -104,11 +110,11 @@ class FinancialInstititutionTest extends TestCase
 
     public function testUpdateNotFound()
     {
-        $f = factory(FinancialInstitution::class)->create();
+        $f = factory(IndexRate::class)->create();
         $params = [
-            'full_name' => $this->faker()->company,
-            'short_name' => $this->faker()->word,
-            'financial_institution_type_id' => factory(\App\FinancialInstitutionType::class)->create()->id,
+            'index_id' => factory(\App\Index::class)->create()->id,
+            'period_id' => factory(\App\Period::class)->create()->id,
+            'value' => $this->faker()->randomFloat(2),
         ];
         
         $response = $this->json('PUT', $this->url.'/'.($f->id+1), $params);
@@ -118,39 +124,39 @@ class FinancialInstititutionTest extends TestCase
 
     public function testUpdateMissingParameter()
     {
-        $f = factory(FinancialInstitution::class)->create();
+        $f = factory(IndexRate::class)->create();
         $baseParams = [
-            'full_name' => $this->faker()->company,
-            'short_name' => $this->faker()->word,
-            'financial_institution_type_id' => factory(\App\FinancialInstitutionType::class)->create()->id,
+            'index_id' => factory(\App\Index::class)->create()->id,
+            'period_id' => factory(\App\Period::class)->create()->id,
+            'value' => $this->faker()->randomFloat(2),
         ];
         
         $params = $baseParams;
-        unset($params['full_name']);
+        unset($params['index_id']);
         $response = $this->json('PUT', $this->url.'/'.$f->id, $params);
         $response->assertStatus(422);
 
         $params = $baseParams;
-        unset($params['short_name']);
+        unset($params['period_id']);
         $response = $this->json('PUT', $this->url.'/'.$f->id, $params);
         $response->assertStatus(422);
 
         $params = $baseParams;
-        unset($params['financial_institution_type_id']);
+        unset($params['value']);
         $response = $this->json('PUT', $this->url.'/'.$f->id, $params);
         $response->assertStatus(422);
     }
 
     public function testDestroyOk()
     {
-        $f = factory(FinancialInstitution::class)->create();
+        $f = factory(IndexRate::class)->create();
         $response = $this->json('DELETE', $this->url.'/'.$f->id);
         $response->assertStatus(204);
     }
 
     public function testDestroyNotFound()
     {
-        $f = factory(FinancialInstitution::class)->create();
+        $f = factory(IndexRate::class)->create();
         $response = $this->json('DELETE', $this->url.'/'.($f->id+1));
         $response->assertStatus(404);
     }
