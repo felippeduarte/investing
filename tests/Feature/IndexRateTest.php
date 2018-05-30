@@ -62,7 +62,7 @@ class IndexRateTest extends TestCase
             'period_id' => factory(\App\Period::class)->create()->id,
             'value' => $this->faker()->randomFloat(2),
         ];
-        
+
         $response = $this->post($this->url, $params);
 
         $response->assertStatus(201);
@@ -76,7 +76,7 @@ class IndexRateTest extends TestCase
             'period_id' => factory(\App\Period::class)->create()->id,
             'value' => $this->faker()->randomFloat(2),
         ];
-        
+
         $params = $baseParams;
         unset($params['index_id']);
         $response = $this->json('POST', $this->url, $params);
@@ -99,9 +99,9 @@ class IndexRateTest extends TestCase
         $params = [
             'index_id' => factory(\App\Index::class)->create()->id,
             'period_id' => factory(\App\Period::class)->create()->id,
-            'value' => $this->faker()->randomFloat(2),
+            'value' => $this->faker()->randomFloat(2,0,99),
         ];
-        
+
         $response = $this->json('PUT', $this->url.'/'.$f->id, $params);
 
         $response->assertStatus(200);
@@ -116,7 +116,7 @@ class IndexRateTest extends TestCase
             'period_id' => factory(\App\Period::class)->create()->id,
             'value' => $this->faker()->randomFloat(2),
         ];
-        
+
         $response = $this->json('PUT', $this->url.'/'.($f->id+1), $params);
 
         $response->assertStatus(404);
@@ -130,7 +130,7 @@ class IndexRateTest extends TestCase
             'period_id' => factory(\App\Period::class)->create()->id,
             'value' => $this->faker()->randomFloat(2),
         ];
-        
+
         $params = $baseParams;
         unset($params['index_id']);
         $response = $this->json('PUT', $this->url.'/'.$f->id, $params);
