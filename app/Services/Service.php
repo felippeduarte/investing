@@ -41,7 +41,7 @@ class Service
                 $field = $sort[0];
                 $direction = $sort[1];
                 $data = $data->orderBy($field, $direction);
-            } 
+            }
         }
 
         return $data;
@@ -53,7 +53,7 @@ class Service
             $per_page = $request->input('per_page');
             return $data->paginate($per_page);
         }
-        
+
         return $data->get();
     }
 }

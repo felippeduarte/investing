@@ -3,83 +3,39 @@
 namespace App\Http\Controllers;
 
 use App\InvestmentProduct;
+use App\Services\InvestmentProductService;
 use Illuminate\Http\Request;
+use App\Http\Requests\InvestmentProductRequest;
 
 class InvestmentProductController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function __construct(InvestmentProductService $service)
     {
-        //
+        $this->service = $service;
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function index(Request $request)
     {
-        //
+        return parent::_index($request);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function store(InvestmentProductRequest $request)
     {
-        //
+        return parent::_store($request);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\InvestmentProduct  $InvestmentProduct
-     * @return \Illuminate\Http\Response
-     */
-    public function show(InvestmentProduct $InvestmentProduct)
+    public function show(Request $request, InvestmentProduct $investmentProduct)
     {
-        //
+        return parent::_show($request, $investmentProduct);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\InvestmentProduct  $InvestmentProduct
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(InvestmentProduct $InvestmentProduct)
+    public function update(InvestmentProductRequest $request, InvestmentProduct $investmentProduct)
     {
-        //
+        return parent::_update($request, $investmentProduct);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\InvestmentProduct  $InvestmentProduct
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, InvestmentProduct $InvestmentProduct)
+    public function destroy(InvestmentProduct $investmentProduct)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\InvestmentProduct  $InvestmentProduct
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(InvestmentProduct $InvestmentProduct)
-    {
-        //
+        return parent::_destroy($investmentProduct);
     }
 }
