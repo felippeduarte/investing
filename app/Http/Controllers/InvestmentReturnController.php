@@ -3,83 +3,39 @@
 namespace App\Http\Controllers;
 
 use App\InvestmentReturn;
+use App\Services\InvestmentReturnService;
 use Illuminate\Http\Request;
+use App\Http\Requests\InvestmentReturnRequest;
 
 class InvestmentReturnController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function __construct(InvestmentReturnService $service)
     {
-        //
+        $this->service = $service;
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function index(Request $request)
     {
-        //
+        return parent::_index($request);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function store(InvestmentReturnRequest $request)
     {
-        //
+        return parent::_store($request);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\InvestmentReturn  $investmentReturn
-     * @return \Illuminate\Http\Response
-     */
-    public function show(InvestmentReturn $investmentReturn)
+    public function show(Request $request, InvestmentReturn $investmentReturn)
     {
-        //
+        return parent::_show($request, $investmentReturn);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\InvestmentReturn  $investmentReturn
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(InvestmentReturn $investmentReturn)
+    public function update(InvestmentReturnRequest $request, InvestmentReturn $investmentReturn)
     {
-        //
+        return parent::_update($request, $investmentReturn);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\InvestmentReturn  $investmentReturn
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, InvestmentReturn $investmentReturn)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\InvestmentReturn  $investmentReturn
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(InvestmentReturn $investmentReturn)
     {
-        //
+        return parent::_destroy($investmentReturn);
     }
 }

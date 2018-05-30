@@ -10,6 +10,6 @@ $factory->define(App\InvestmentReturn::class, function (Faker $faker) {
         'period_id' => function() {
             return factory(App\Period::class)->create()->id;
         },
-        'value' => $faker->randomFloat(2),
+        'value' => $faker->randomFloat(2,0,100),
     ];
 });
