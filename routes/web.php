@@ -26,4 +26,7 @@ Route::prefix('admin')->middleware('auth')->group(function() use($except) {
     Route::resource('investmentType', 'InvestmentTypeController', $except);
     Route::resource('period', 'PeriodController', $except);
     Route::resource('riskLevel', 'RiskLevelController', $except);
+    Route::resource('user', 'UserController', $except);
 });
+
+Route::get('/{any}', 'HomeController@index')->where('any', '.*');
