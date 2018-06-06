@@ -2,15 +2,15 @@
 
 namespace Tests\Feature;
 
-use Tests\TestCase;
+use Tests\AdminTestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use App\IndexRate;
 
-class IndexRateTest extends TestCase
+class IndexRateTest extends AdminTestCase
 {
     use WithFaker;
 
-    protected $url = '/api/indexRate';
+    protected $url = '/admin/indexRate';
 
     public function testIndexOk()
     {

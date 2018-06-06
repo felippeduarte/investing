@@ -2,16 +2,15 @@
 
 namespace Tests\Feature;
 
-use Tests\TestCase;
+use Tests\AdminTestCase;
 use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\FinancialInstitutionType;
 
-class FinancialInstitutionTypeTest extends TestCase
+class FinancialInstitutionTypeTest extends AdminTestCase
 {
     use WithFaker;
 
-    protected $url = '/api/financialInstitutionType';
+    protected $url = '/admin/financialInstitutionType';
 
     public function testIndexOk()
     {
@@ -55,7 +54,7 @@ class FinancialInstitutionTypeTest extends TestCase
         $params = [
             'description' => $this->faker()->word,
         ];
-        
+
         $response = $this->post($this->url, $params);
 
         $response->assertStatus(201);
@@ -74,7 +73,7 @@ class FinancialInstitutionTypeTest extends TestCase
         $params = [
             'description' => $this->faker()->word,
         ];
-        
+
         $response = $this->json('PUT', $this->url.'/'.$f->id, $params);
 
         $response->assertStatus(200);
@@ -87,7 +86,7 @@ class FinancialInstitutionTypeTest extends TestCase
         $params = [
             'description' => $this->faker()->word,
         ];
-        
+
         $response = $this->json('PUT', $this->url.'/'.($f->id+1), $params);
 
         $response->assertStatus(404);

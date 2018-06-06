@@ -2,15 +2,15 @@
 
 namespace Tests\Feature;
 
-use Tests\TestCase;
+use Tests\AdminTestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use App\FinancialInstitution;
 
-class FinancialInstitutionTest extends TestCase
+class FinancialInstitutionTest extends AdminTestCase
 {
     use WithFaker;
 
-    protected $url = '/api/financialInstitution';
+    protected $url = '/admin/financialInstitution';
 
     public function testIndexOk()
     {
@@ -34,6 +34,8 @@ class FinancialInstitutionTest extends TestCase
 
     public function testShowOk()
     {
+        // $this->withoutMiddleware();
+        // $this->withMiddleware([\Illuminate\Routing\Middleware\SubstituteBindings::class]);
         $f = factory(FinancialInstitution::class)->create();
         $response = $this->get($this->url.'/'.$f->id);
         $response->assertStatus(200);
@@ -56,7 +58,7 @@ class FinancialInstitutionTest extends TestCase
             'short_name' => $this->faker()->word,
             'financial_institution_type_id' => factory(\App\FinancialInstitutionType::class)->create()->id,
         ];
-        
+
         $response = $this->post($this->url, $params);
 
         $response->assertStatus(201);
@@ -70,7 +72,7 @@ class FinancialInstitutionTest extends TestCase
             'short_name' => $this->faker()->word,
             'financial_institution_type_id' => factory(\App\FinancialInstitutionType::class)->create()->id,
         ];
-        
+
         $params = $baseParams;
         unset($params['full_name']);
         $response = $this->json('POST', $this->url, $params);
@@ -95,7 +97,7 @@ class FinancialInstitutionTest extends TestCase
             'short_name' => $this->faker()->word,
             'financial_institution_type_id' => factory(\App\FinancialInstitutionType::class)->create()->id,
         ];
-        
+
         $response = $this->json('PUT', $this->url.'/'.$f->id, $params);
 
         $response->assertStatus(200);
@@ -110,7 +112,7 @@ class FinancialInstitutionTest extends TestCase
             'short_name' => $this->faker()->word,
             'financial_institution_type_id' => factory(\App\FinancialInstitutionType::class)->create()->id,
         ];
-        
+
         $response = $this->json('PUT', $this->url.'/'.($f->id+1), $params);
 
         $response->assertStatus(404);
@@ -124,7 +126,7 @@ class FinancialInstitutionTest extends TestCase
             'short_name' => $this->faker()->word,
             'financial_institution_type_id' => factory(\App\FinancialInstitutionType::class)->create()->id,
         ];
-        
+
         $params = $baseParams;
         unset($params['full_name']);
         $response = $this->json('PUT', $this->url.'/'.$f->id, $params);

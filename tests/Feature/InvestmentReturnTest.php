@@ -2,15 +2,15 @@
 
 namespace Tests\Feature;
 
-use Tests\TestCase;
+use Tests\AdminTestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use App\InvestmentReturn;
 
-class InvestmentReturnTest extends TestCase
+class InvestmentReturnTest extends AdminTestCase
 {
     use WithFaker;
 
-    protected $url = '/api/investmentReturn';
+    protected $url = '/admin/investmentReturn';
 
     public function testIndexOk()
     {

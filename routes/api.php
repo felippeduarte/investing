@@ -12,17 +12,3 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
-Route::resource('financialInstitution', 'FinancialInstitutionController');
-Route::resource('financialInstitutionType', 'FinancialInstitutionTypeController');
-Route::resource('index', 'IndexController');
-Route::resource('indexRate', 'IndexRateController');
-Route::resource('investmentProduct', 'InvestmentProductController');
-Route::resource('investmentReturn', 'InvestmentReturnController');
-Route::resource('investmentType', 'InvestmentTypeController');
-Route::resource('period', 'PeriodController');
-Route::resource('riskLevel', 'RiskLevelController');
