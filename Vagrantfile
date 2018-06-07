@@ -32,12 +32,14 @@ sudo service mysql restart
 
 echo -e "\n--- Instalando Apache 2 ---\n"
 sudo apt-get install -y apache2
+sudo a2enmod rewrite
 
 echo -e "\n--- Definindo diretório da aplicação Laravel ---\n"
 rm -rf /var/www/html
 ln -s /vagrant /var/www/html
 echo "cd /vagrant" >> /home/vagrant/.bashrc
 sudo sed -i 's!/var/www/html!/var/www/html/public!g' /etc/apache2/sites-available/000-default.conf
+sudo sed -i '/\/var\/www\/html\/public/ a <Directory "/var/www/html/public">AllowOverride all</Directory>' /etc/apache2/sites-available/000-default.conf
 
 echo -e "\n--- Instalando o PHP 7.2 ---\n"
 sudo apt-get -y install python-software-properties

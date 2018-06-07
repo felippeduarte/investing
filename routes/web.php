@@ -15,7 +15,6 @@ Route::post('/login', 'LoginController@login');
 Route::get('/logout', 'LoginController@logout');
 
 $except = ['except' => ['create','edit']];
-Route::resource('financialInstitution', 'FinancialInstitutionController', $except);
 Route::prefix('admin')->middleware('auth')->group(function() use($except) {
     Route::resource('financialInstitution', 'FinancialInstitutionController', $except);
     Route::resource('financialInstitutionType', 'FinancialInstitutionTypeController', $except);
@@ -27,6 +26,7 @@ Route::prefix('admin')->middleware('auth')->group(function() use($except) {
     Route::resource('period', 'PeriodController', $except);
     Route::resource('riskLevel', 'RiskLevelController', $except);
     Route::resource('user', 'UserController', $except);
+    Route::get('/{any}', 'HomeController@admin')->where('any', '.*');
 });
 
 Route::get('/{any}', 'HomeController@index')->where('any', '.*');
