@@ -38,8 +38,16 @@ echo -e "\n--- Definindo diretório da aplicação Laravel ---\n"
 rm -rf /var/www/html
 ln -s /vagrant /var/www/html
 echo "cd /vagrant" >> /home/vagrant/.bashrc
-sudo sed -i 's!/var/www/html!/var/www/html/public!g' /etc/apache2/sites-available/000-default.conf
-sudo sed -i '/\/var\/www\/html\/public/ a <Directory "/var/www/html/public">AllowOverride all</Directory>' /etc/apache2/sites-available/000-default.conf
+
+sudo sed -i '/^/d' /etc/apache2/sites-available/000-default.conf
+sudo echo '<VirtualHost *:80>' >> /etc/apache2/sites-available/000-default.conf
+sudo echo '    DocumentRoot /var/www/html/public' >> /etc/apache2/sites-available/000-default.conf
+sudo echo '    <Directory "/var/www/html/public">' >> /etc/apache2/sites-available/000-default.conf
+sudo echo '        AllowOverride all' >> /etc/apache2/sites-available/000-default.conf
+sudo echo '    </Directory>' >> /etc/apache2/sites-available/000-default.conf
+sudo echo '    ErrorLog ${APACHE_LOG_DIR}/error.log' >> /etc/apache2/sites-available/000-default.conf
+sudo echo '    CustomLog ${APACHE_LOG_DIR}/access.log combined' >> /etc/apache2/sites-available/000-default.conf
+sudo echo '</VirtualHost>' >> /etc/apache2/sites-available/000-default.conf
 
 echo -e "\n--- Instalando o PHP 7.2 ---\n"
 sudo apt-get -y install python-software-properties
